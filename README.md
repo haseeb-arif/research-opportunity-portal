@@ -11,3 +11,8 @@ GitHub Repository: https://github.com/haseeb-arif/research-opportunity-portal
 3. `cd backend && npm install`
 4. Copy `.env.example` to `.env` (XAMPP root has no password by default).
 5. `npm run dev` (server runs on http://localhost:5000)
+
+
+
+## API Testing
+Import `postman/research-opportunity-portal.postman_collection.json` into Postman and run the requests in order.
