@@ -78,4 +78,19 @@ router.put('/:id', async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
+
+// DELETE
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id < 1) return res.status(400).json({ error: 'ID must be a positive integer' });
+
+    const [result] = await pool.query('DELETE FROM opportunities WHERE id = ?', [id]);
+    if (result.affectedRows === 0) return res.status(404).json({ error: 'Opportunity not found' });
+
+    res.status(200).json({ message: 'Opportunity deleted successfully' });
+  } catch (err) { next(err); }
+});
+
+
 module.exports = router;
