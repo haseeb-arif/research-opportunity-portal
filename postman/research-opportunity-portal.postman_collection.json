@@ -1,0 +1,390 @@
+{
+  "info": {
+    "_postman_id": "0d9981be-a7ab-46d4-8c07-75eabc76727b",
+    "name": "Research Opportunity Portal API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58879636",
+    "_collection_link": "https://go.postman.co/collection/58879636-0d9981be-a7ab-46d4-8c07-75eabc76727b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create opportunity 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.collectionVariables.set(\"id1\", pm.response.json().id);\r\n\r\npm.test(\"Status is 201 Created\", () => {\r\n  pm.response.to.have.status(201);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"AI-based Crop Disease Detection\",\r\n  \"description\": \"Build a CNN model to detect crop diseases from leaf images.\",\r\n  \"research_area\": \"Computer Vision\",\r\n  \"faculty_name\": \"Dr. Ahmed Khan\",\r\n  \"department\": \"Computer Science\",\r\n  \"required_skills\": \"Python, PyTorch, OpenCV\",\r\n  \"positions\": 2,\r\n  \"deadline\": \"2026-12-15\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/opportunities",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "opportunities"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create opportunity 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 201 Created\", () => {\r\n  pm.response.to.have.status(201);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Network Traffic Anomaly Detection\",\r\n  \"description\": \"Use machine learning to detect unusual patterns in network traffic.\",\r\n  \"research_area\": \"Computer Networks\",\r\n  \"faculty_name\": \"Dr. Sara Malik\",\r\n  \"department\": \"Computer Science\",\r\n  \"required_skills\": \"Python, Wireshark, Scikit-learn\",\r\n  \"positions\": 3,\r\n  \"deadline\": \"2026-12-20\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/opportunities",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "opportunities"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create opportunity 3",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.collectionVariables.set(\"id3\", pm.response.json().id);\r\n\r\npm.test(\"Status is 201 Created\", () => {\r\n  pm.response.to.have.status(201);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Urdu Sentiment Analysis\",\r\n  \"description\": \"Build a dataset and classifier for Urdu social media text.\",\r\n  \"research_area\": \"Natural Language Processing\",\r\n  \"faculty_name\": \"Dr. Imran Shah\",\r\n  \"department\": \"Computer Science\",\r\n  \"required_skills\": \"Python, NLP, Transformers\",\r\n  \"positions\": 1,\r\n  \"deadline\": \"2027-01-10\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/opportunities",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "opportunities"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200 OK\", () => {\r\n  pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Returns an array with at least 3 items\", () => {\r\n  pm.expect(pm.response.json()).to.be.an(\"array\");\r\n  pm.expect(pm.response.json().length).to.be.at.least(3);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/opportunities",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "opportunities"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get one",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200 OK\", () => {\r\n  pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Returned the right record\", () => {\r\n  pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"id1\")));\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/opportunities/{{id1}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "opportunities",
+            "{{id1}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200 OK\", () => {\r\n  pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Title and positions were updated\", () => {\r\n  const body = pm.response.json();\r\n  pm.expect(body.title).to.eql(\"Updated Crop Disease Detection\");\r\n  pm.expect(body.positions).to.eql(3);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"title\": \"Updated Crop Disease Detection\", \"positions\": 3 }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/opportunities/{{id1}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "opportunities",
+            "{{id1}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Close (Open to Closed)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200 OK\", () => {\r\n  pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Opportunity status is now Closed\", () => {\r\n  pm.expect(pm.response.json().status).to.eql(\"Closed\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"status\": \"Closed\" }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/opportunities/{{id1}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "opportunities",
+            "{{id1}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200 OK\", () => {\r\n  pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Delete message returned\", () => {\r\n  pm.expect(pm.response.json().message).to.include(\"deleted\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/opportunities/{{id3}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "opportunities",
+            "{{id3}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get deleted (404)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 404 Not Found\", () => {\r\n  pm.response.to.have.status(404);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/opportunities/{{id3}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "opportunities",
+            "{{id3}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Invalid data (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 400 Bad Request\", () => {\r\n  pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Validation errors are listed\", () => {\r\n  pm.expect(pm.response.json().details).to.be.an(\"array\").that.is.not.empty;\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"description\": \"This request has no title and invalid positions.\",\r\n  \"research_area\": \"Computer Vision\",\r\n  \"faculty_name\": \"Dr. Ahmed Khan\",\r\n  \"department\": \"Computer Science\",\r\n  \"required_skills\": \"Python\",\r\n  \"positions\": 0,\r\n  \"deadline\": \"2026-12-15\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/opportunities",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "opportunities"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "id1",
+      "value": ""
+    },
+    {
+      "key": "id3",
+      "value": ""
+    }
+  ]
+}
