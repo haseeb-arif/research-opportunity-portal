@@ -75,6 +75,8 @@ document.getElementById('opportunities-list').addEventListener('click', (e) => {
 
   if (action === 'view') viewOpportunity(id);
   // edit, close and delete are added in later steps
+
+  if (action === 'edit') openEditForm(id);
 });
 
 async function viewOpportunity(id) {
@@ -168,3 +170,21 @@ form.addEventListener('submit', async (e) => {
     submitBtn.disabled = false;
   }
 });
+
+async function openEditForm(id) {
+  try {
+    const res = await fetch(`${API_URL}/${id}`);
+    const o = await res.json();
+    if (!res.ok) throw new Error(o.error || 'Could not load opportunity');
+
+    form.reset();
+    form.classList.remove('was-validated');
+    document.getElementById('form-error').classList.add('d-none');
+    form.elements.opportunity_id.value = o.id;
+    ALL_FIELDS.forEach((f) => { form.elements[f].value = o[f]; });
+    document.getElementById('form-title').textContent = 'Edit Research Opportunity';
+    formModal.show();
+  } catch (err) {
+    showAlert(escapeHtml(err.message), 'danger');
+  }
+}
