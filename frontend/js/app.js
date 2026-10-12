@@ -77,6 +77,8 @@ document.getElementById('opportunities-list').addEventListener('click', (e) => {
   // edit, close and delete are added in later steps
 
   if (action === 'edit') openEditForm(id);
+
+  if (action === 'close') closeOpportunity(id);
 });
 
 async function viewOpportunity(id) {
@@ -184,6 +186,23 @@ async function openEditForm(id) {
     ALL_FIELDS.forEach((f) => { form.elements[f].value = o[f]; });
     document.getElementById('form-title').textContent = 'Edit Research Opportunity';
     formModal.show();
+  } catch (err) {
+    showAlert(escapeHtml(err.message), 'danger');
+  }
+}
+
+async function closeOpportunity(id) {
+  try {
+    const res = await fetch(`${API_URL}/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'Closed' }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Could not close opportunity');
+
+    showAlert('Opportunity closed successfully.');
+    loadOpportunities();
   } catch (err) {
     showAlert(escapeHtml(err.message), 'danger');
   }
