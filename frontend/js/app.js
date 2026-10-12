@@ -100,3 +100,71 @@ async function viewOpportunity(id) {
     showAlert(escapeHtml(err.message), 'danger');
   }
 }
+
+const formModal = new bootstrap.Modal(document.getElementById('formModal'));
+const form = document.getElementById('opportunity-form');
+const TEXT_FIELDS = ['title', 'description', 'research_area', 'faculty_name', 'department', 'required_skills'];
+const ALL_FIELDS = [...TEXT_FIELDS, 'positions', 'deadline'];
+
+function showFormError(html) {
+  const box = document.getElementById('form-error');
+  box.innerHTML = html;
+  box.classList.remove('d-none');
+}
+
+function openCreateForm() {
+  form.reset();
+  form.classList.remove('was-validated');
+  form.elements.opportunity_id.value = '';
+  document.getElementById('form-title').textContent = 'New Research Opportunity';
+  document.getElementById('form-error').classList.add('d-none');
+  formModal.show();
+}
+
+document.getElementById('btn-new').addEventListener('click', openCreateForm);
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  document.getElementById('form-error').classList.add('d-none');
+
+  // Trim text so whitespace-only input counts as empty
+  TEXT_FIELDS.forEach((f) => { form.elements[f].value = form.elements[f].value.trim(); });
+
+  // Frontend validation
+  if (!form.checkValidity()) {
+    form.classList.add('was-validated');
+    return;
+  }
+
+  const payload = {};
+  ALL_FIELDS.forEach((f) => { payload[f] = form.elements[f].value; });
+  payload.positions = Number(payload.positions);
+
+  const id = form.elements.opportunity_id.value;
+  const isEdit = Boolean(id);
+  const submitBtn = document.getElementById('form-submit');
+  submitBtn.disabled = true;
+
+  try {
+    const res = await fetch(isEdit ? `${API_URL}/${id}` : API_URL, {
+      method: isEdit ? 'PUT' : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      const messages = data.details ? data.details.map(escapeHtml).join('<br>') : escapeHtml(data.error);
+      showFormError(messages);
+      return;
+    }
+
+    formModal.hide();
+    showAlert(isEdit ? 'Opportunity updated successfully.' : 'Opportunity created successfully.');
+    loadOpportunities();
+  } catch (err) {
+    showFormError('Could not reach the server. Please try again.');
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
