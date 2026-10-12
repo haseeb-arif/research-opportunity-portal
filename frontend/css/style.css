@@ -1,0 +1,15 @@
+body {
+  background-color: #f5f7fa;
+}
+
+.opportunity-card .card-title {
+  font-size: 1.1rem;
+}
+
+.badge-open {
+  background-color: #198754;
+}
+
+.badge-closed {
+  background-color: #6c757d;
+}
