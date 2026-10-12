@@ -66,3 +66,37 @@ function renderOpportunities(items) {
 }
 
 document.addEventListener('DOMContentLoaded', loadOpportunities);
+
+// One click listener for all card buttons
+document.getElementById('opportunities-list').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-action]');
+  if (!btn) return;
+  const { action, id } = btn.dataset;
+
+  if (action === 'view') viewOpportunity(id);
+  // edit, close and delete are added in later steps
+});
+
+async function viewOpportunity(id) {
+  try {
+    const res = await fetch(`${API_URL}/${id}`);
+    const o = await res.json();
+    if (!res.ok) throw new Error(o.error || 'Could not load opportunity');
+
+    document.getElementById('details-title').textContent = o.title;
+    document.getElementById('details-body').innerHTML = `
+      <div class="mb-3">${statusBadge(o.status)}</div>
+      <dl class="row mb-0">
+        <dt class="col-sm-4">Description</dt><dd class="col-sm-8">${escapeHtml(o.description)}</dd>
+        <dt class="col-sm-4">Research area</dt><dd class="col-sm-8">${escapeHtml(o.research_area)}</dd>
+        <dt class="col-sm-4">Faculty member</dt><dd class="col-sm-8">${escapeHtml(o.faculty_name)}</dd>
+        <dt class="col-sm-4">Department</dt><dd class="col-sm-8">${escapeHtml(o.department)}</dd>
+        <dt class="col-sm-4">Required skills</dt><dd class="col-sm-8">${escapeHtml(o.required_skills)}</dd>
+        <dt class="col-sm-4">Positions</dt><dd class="col-sm-8">${escapeHtml(o.positions)}</dd>
+        <dt class="col-sm-4">Deadline</dt><dd class="col-sm-8">${escapeHtml(o.deadline)}</dd>
+      </dl>`;
+    bootstrap.Modal.getOrCreateInstance(document.getElementById('detailsModal')).show();
+  } catch (err) {
+    showAlert(escapeHtml(err.message), 'danger');
+  }
+}
