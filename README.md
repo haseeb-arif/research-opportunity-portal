@@ -13,6 +13,15 @@ GitHub Repository: https://github.com/haseeb-arif/research-opportunity-portal
 5. `npm run dev` (server runs on http://localhost:5000)
 
 
-
 ## API Testing
 Import `postman/research-opportunity-portal.postman_collection.json` into Postman and run the requests in order.
+
+## Running the Full Application
+1. Start **MySQL** in XAMPP and create the database (see Backend Setup).
+2. `cd backend && npm run dev`
+3. Open http://localhost:5000 (the frontend is served by the backend).
+
+## Features
+- View all research opportunities and the full details of each
+- Create, edit, close (Open to Closed) and delete opportunities
+- Form validation and success / error messages
