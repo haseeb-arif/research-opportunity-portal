@@ -79,6 +79,8 @@ document.getElementById('opportunities-list').addEventListener('click', (e) => {
   if (action === 'edit') openEditForm(id);
 
   if (action === 'close') closeOpportunity(id);
+
+  if (action === 'delete') askDelete(id);
 });
 
 async function viewOpportunity(id) {
@@ -207,3 +209,25 @@ async function closeOpportunity(id) {
     showAlert(escapeHtml(err.message), 'danger');
   }
 }
+
+const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+let pendingDeleteId = null;
+
+function askDelete(id) {
+  pendingDeleteId = id;
+  deleteModal.show();
+}
+
+document.getElementById('confirm-delete').addEventListener('click', async () => {
+  deleteModal.hide();
+  try {
+    const res = await fetch(`${API_URL}/${pendingDeleteId}`, { method: 'DELETE' });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Could not delete opportunity');
+
+    showAlert('Opportunity deleted successfully.');
+  } catch (err) {
+    showAlert(escapeHtml(err.message), 'danger'); // e.g. 404 if it was already deleted
+  }
+  loadOpportunities();
+});
