@@ -34,3 +34,6 @@ Import `postman/research-opportunity-portal.postman_collection.json` into Postma
 | GET | /api/opportunities/:id | Get one opportunity |
 | PUT | /api/opportunities/:id | Update an opportunity |
 | DELETE | /api/opportunities/:id | Delete an opportunity |
+
+## Demo Video
+Watch the one-minute demonstration: https://drive.google.com/file/d/1sDyZbVQ3XbUSsXdQMSL9oIxaAuxNhlQD/view?usp=drive_link
