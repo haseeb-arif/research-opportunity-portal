@@ -25,3 +25,12 @@ Import `postman/research-opportunity-portal.postman_collection.json` into Postma
 - View all research opportunities and the full details of each
 - Create, edit, close (Open to Closed) and delete opportunities
 - Form validation and success / error messages
+
+## API Endpoints
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | /api/opportunities | Create an opportunity |
+| GET | /api/opportunities | Get all opportunities |
+| GET | /api/opportunities/:id | Get one opportunity |
+| PUT | /api/opportunities/:id | Update an opportunity |
+| DELETE | /api/opportunities/:id | Delete an opportunity |
